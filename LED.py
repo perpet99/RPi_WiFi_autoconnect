@@ -80,9 +80,9 @@ class LED:
 
     def led(self, on, reset=-1):
         if on:
-            subprocess.call("echo 1 | sudo tee /sys/class/leds/PWR/brightness", shell=True)
+            subprocess.call("echo 1 | sudo tee /sys/class/leds/ACT/brightness", shell=True)
         else:
-            subprocess.call("echo 0 | sudo tee /sys/class/leds/PWR/brightness", shell=True)
+            subprocess.call("echo 0 | sudo tee /sys/class/leds/ACT/brightness", shell=True)
         if reset > 0:
             time.sleep(reset)
             self.led(not on)
