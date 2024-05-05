@@ -6,7 +6,7 @@ import os
 import script
 import LED
 
-RPicamera = False #also can work with RPiCamera
+RPicamera = True #also can work with RPiCamera
 if RPicamera:
     from picamera.array import PiRGBArray
     from picamera import PiCamera
@@ -38,7 +38,7 @@ def is_connected():
 
 #Check if ARM
 Platform = DecideParams()
-testmod = True #To test on Windows machine without connections
+testmod = False #To test on Windows machine without connections
 
 led = LED()
 
