@@ -1,0 +1,17 @@
+[Unit]
+Description=OpenVINO Python Script
+After=network.target
+
+[Service]
+
+User=perpet
+
+Type=simple
+ExecStart=/home/perpet/autowifi/openvino-app-script.sh start
+WorkingDirectory=/home/perpet/autowifi
+
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

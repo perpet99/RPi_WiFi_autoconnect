@@ -4,6 +4,7 @@ import socket
 import time
 import os
 import script
+import LED
 
 RPicamera = False #also can work with RPiCamera
 if RPicamera:
@@ -37,8 +38,9 @@ def is_connected():
 
 #Check if ARM
 Platform = DecideParams()
-testmod = False #To test on Windows machine without connections
+testmod = True #To test on Windows machine without connections
 
+led = LED()
 
 if Platform=='RPiOS' or Platform=='UNIX' or testmod:
     isconnect=False
@@ -56,6 +58,8 @@ if Platform=='RPiOS' or Platform=='UNIX' or testmod:
     #if machine not connected to internet or in testmode
     if testmod or not isconnect:
         #if we have RPi camera - we can use it
+        led.start()
+
         if RPicamera:
             camera = PiCamera()
             camera.resolution = (640, 480)
@@ -120,3 +124,5 @@ if Platform=='RPiOS' or Platform=='UNIX' or testmod:
                     if time.time() - last_check_time>5:
                         continue_search = not is_connected()
                         last_check_time = time.time()
+
+        led.stop()
