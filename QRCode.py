@@ -4,12 +4,12 @@ import socket
 import time
 import os
 import script
-import LED
+from LED import LED
 
 RPicamera = True #also can work with RPiCamera
 if RPicamera:
-    from picamera.array import PiRGBArray
-    from picamera import PiCamera
+    from picamera2.array import PiRGBArray
+    from picamera2 import Picamera2
 
 
 #ForTestReasons
@@ -61,7 +61,7 @@ if Platform=='RPiOS' or Platform=='UNIX' or testmod:
         led.start()
 
         if RPicamera:
-            camera = PiCamera()
+            camera = Picamera2()
             camera.resolution = (640, 480)
             camera.framerate = 32
             rawCapture = PiRGBArray(camera, size=(640, 480))
@@ -76,7 +76,7 @@ if Platform=='RPiOS' or Platform=='UNIX' or testmod:
             #if we have RPI camera
             if RPicamera:
                 rawCapture.truncate(0)
-                image = next(camera.capture_continuous(rawCapture, format="bgr", use_video_port=True)).array
+                image = camera.capture_array()
             else:
                 was_read, image = cap.read()
             #After we find QRCode - we stop deterction for 20 secondes, or it will be continius reconnect attemps
