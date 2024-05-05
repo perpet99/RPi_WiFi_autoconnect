@@ -3,7 +3,7 @@ set -e
 
 source "./env/bin/activate"
 
-pip install python-opencv
+pip install opencv-python
 
 
 python3 QRCode.py
