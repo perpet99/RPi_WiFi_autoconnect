@@ -62,9 +62,10 @@ if Platform=='RPiOS' or Platform=='UNIX' or testmod:
 
         if RPicamera:
             camera = Picamera2()
-            camera.resolution = (640, 480)
-            camera.framerate = 32
-            rawCapture = PiRGBArray(camera, size=(640, 480))
+            video_config = camera.create_video_configuration(main={"size": (1280, 960)})
+            camera.configure(video_config)
+            camera.start()
+
             time.sleep(0.1)
         else:
             cap = cv2.VideoCapture(0)
@@ -75,8 +76,8 @@ if Platform=='RPiOS' or Platform=='UNIX' or testmod:
         while continue_search:
             #if we have RPI camera
             if RPicamera:
-                rawCapture.truncate(0)
-                image = camera.capture_array()
+                # rawCapture.truncate(0)
+                image = camera.capture_array("main")
             else:
                 was_read, image = cap.read()
             #After we find QRCode - we stop deterction for 20 secondes, or it will be continius reconnect attemps
